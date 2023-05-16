@@ -1,0 +1,31 @@
+<% if flash[:success].present? %>
+  <div class="alert alert-success custom_alert" role="alert">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<div class="container ps-4 pe-4 pb-3" style="border: 0px solid black; border-radius: 30px; background-color: rgba(26, 189, 206, 0.30);">
+  <% @events.each do |event| %>
+    <% if event.id == @event.id %>
+      <div class="d-flex align-items-center justify-content-between">
+        <h2><%= event.title %></h2>
+        <% if current_user == @event.admin %>
+          <a href="<%= edit_event_path(event.id) %>" class="btn btn-primary rounded-pill me-auto ms-4">Éditer l'évènement</a>
+        <% end %>
+        <div class="d-flex align-items-center">
+          <a href="<%= root_path %>" class="justify content-end ms-5 btn btn-primary mt-3 mb-3 rounded-pill">Retour aux évènements</a>
+        </div>
+      </div>
+      <div style="border-top: 1px solid black;">
+      <p style="font-size: 16px;" class="mt-3"><%= event.description %></p>
+      <p>qui aura lieu du <%= event.start_date %> au <%= @event.end_date %></p>
+      <p>à <%= event.location %></p>
+      <p>pour la modique somme de <%= event.price %> pommes de terre</p>
+      </div>
+      <div class="d-flex align-items-center">
+        Créé par :
+        <a href="<%= user_path(event.admin) %>" class="btn btn-custom rounded-pill"><%= event.admin.first_name %> (<%= event.admin.email%>)</a>
+      </div>
+    <% end %>
+  <% end %>
+</div>

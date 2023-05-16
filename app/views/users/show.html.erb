@@ -1,0 +1,26 @@
+<!-- users/show.html.erb -->
+
+<div class="user-profile-card container mt-5">
+  <div class="user-profile-header">
+    <%# <%= image_tag @user.photo.url, class: "user-profile-photo" %>
+    <h1 class="user-profile-full-name"><%= @user.first_name %></h1>
+  </div>
+
+  <div class="user-profile-details">
+    <p><strong>Prénom :</strong> <%= @user.first_name %></p>
+    <p><strong>Nom :</strong> <%= @user.last_name %></p>
+    <p><strong>Description :</strong> <%= @user.description %></p>
+    <p><strong>E-mail :</strong> <%= @user.email %></p>
+    <%= link_to "Modifier les informations du compte", edit_user_path(@user.id) %>
+    <%= link_to "Modifier la sécurité du compte", edit_user_registration_path %>
+  </div>
+
+  <div class="user-profile-events">
+    <h2>Événements créés :</h2>
+    <ul class="user-event-menu">
+      <% @user.administered_events.each do |event| %>
+        <li><%= link_to event.title, event_path(event) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
